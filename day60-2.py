@@ -119,13 +119,156 @@ del group
 #######################################################################
 # Assignment - 5
 
+# First dataframe of length 3
+df1 = pd.DataFrame(
+        {
+            'Key': ['A', 'B', 'C'],
+            'Value': np.random.randint(1, 100, size=3)
+        }
+    )
+
+# First dataframe of length 4
+df2 = pd.DataFrame(
+        {
+            'Key': ['A', 'B', 'C', 'D'],
+            'Value': np.random.randint(5, 200, size=4)
+        }
+    )
+
+# Merging dataframes on column 'Key'
+df_merge_key = pd.merge(df1, df2, on='Key')
+
+# Concatenating dataframes row-wise
+df_concat_row = pd.concat([df1, df2], axis=0)
+
+# Concatenating dataframes column-wise
+df_concat_col = pd.concat([df1, df2], axis=1)
+
+# Deleting data
+del df1
+del df2
+del df_merge_key
+del df_concat_row
+del df_concat_col
+#######################################################################
+# Assignment - 6
+
+# Creating datetime range
+datetimeRange = pd.date_range(start='2024-01-01', end='2024-12-31', freq='D')
+
+# Creating dataframe
+df = pd.DataFrame({
+        'Date': datetimeRange,
+        'Value': np.random.randint(1, 200, size=len(datetimeRange))
+    })
+
+# Setting column 'Date' as index
+df.set_index('Date', inplace=True)
+
+# Resampling data on monthly basis and finding mean
+df_monthly_mean = df.resample('M').mean()
+
+# Rolling mean of window of 7 days
+df_rolling_mean = df.rolling(window=7).mean()
+
+# Deleting data
+del df
+del datetimeRange
+del df_monthly_mean
+del df_rolling_mean
+#######################################################################
+# Assignment - 7
+
+# Index array
+index = [['A', 'A', 'B', 'B', 'C', 'C'], ['1', '2', '1', '2', '1', '2']]
+
+# Creating MultiIndex from index array
+index = pd.MultiIndex.from_arrays(index, names=('Category', 'Subcategory'))
+
+# Creating dataframe
+df = pd.DataFrame(np.random.randint(1, 20, size=(6, 3)), index=index, columns=['Col1', 'Col2', 'Col3'])
+
+# Selecting from 'A' and '1'
+df.loc[('A', '1'), 'Col1']
+
+# Grouping and sum based on 'Category' and 'Subcategory'
+group_sum = df.groupby(['Category', 'Subcategory']).sum()
+
+# Deleting data
+del df
+del index
+del group_sum
+#######################################################################
+# Assignment - 8
+
+# Creating datetime range
+dateTime = pd.date_range(start='2024-01-01', end='2024-01-07', freq='D')
+
+# Creating dataframe
+df = pd.DataFrame({
+        'Date': np.random.choice(dateTime, size=100),
+        'Category': np.random.choice(['a', 'b', 'c'], size=100),
+        'Value': np.random.randint(1, 10, size=100)
+    })
+
+# Pivot table for sum of 'Value' for each 'Category' by 'Date
+df_sum = df.pivot_table(values='Value', columns='Category', index='Date', aggfunc='sum')
+
+# Deleting data
+del df
+del dateTime
+del df_sum
 
 
+# Creating dataframe
+df = pd.DataFrame({
+        'Year': np.random.choice(['2021', '2022', '2023', '2024'], size=100),
+        'Quater': np.random.choice(['Q1', 'Q2', 'Q3' , 'Q4'], size=100),
+        'Revenue': np.random.randint(1, 100, size=100)
+    })
+
+# Pivot table for mean of 'Revenue' for each 'Quater' by 'Year
+df_mean_revenue = df.pivot_table(values='Revenue', columns='Quater', index='Year', aggfunc='mean')
+
+# Deleting data
+del df
+del df_mean_revenue
+#######################################################################
+# Assignment - 9
+
+# Creating dataframe
+df = pd.DataFrame(np.random.randint(1, 20, size=(5, 3)))
+
+# Doubling each element using applymap
+df_doubled = df.applymap(lambda x: x * 2)
+
+# Deleting data
+del df
+del df_doubled
 
 
+# Creating dataframe
+df = pd.DataFrame(np.random.randint(1, 20, size=(6, 3)))
 
+# Adding values of all column for each row and assigning rsult to new column 'Sum'
+df['Sum'] = df.apply(lambda x: x.sum(), axis=1)
 
+# Deleting data
+del df
+#######################################################################
+# Assignment - 10
 
+# Creating seriese with array
+mySeriese = pd.Series(['apple', 'banana', 'cherry', 'date', 'elderberry'])
 
+# Convering to upper case
+mySeriese_upper = mySeriese.str.upper()
 
+# Extracting first 3 char from each
+mySeriese_first_three = mySeriese.str[:3]
 
+# Deleting data
+del mySeriese
+del mySeriese_upper
+del mySeriese_first_three
+#######################################################################
