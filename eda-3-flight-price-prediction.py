@@ -161,3 +161,9 @@ df = pd.concat([df, Additional_Info_encoder], axis=1)
 # Deleting encoder and Source_encoder
 del encoder
 del Additional_Info_encoder
+
+# Finding unique in Journey_Year
+year_unique = df['Journey_Year'].unique()
+
+# There is just 1 value in it so we can remove this column
+df.drop('Journey_Year', axis=1, inplace=True)
