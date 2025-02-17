@@ -2,7 +2,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import root_mean_squared_error, mean_absolute_error, mean_squared_error, r2_score
@@ -72,6 +72,9 @@ intercept = lr.intercept_
 # Score
 training_score = lr.score(X_train, y_train)
 testing_score = lr.score(X_test, y_test)
+
+# Cross validation score
+cross_validation_score = cross_val_score(lr, X_train, y_train)
 
 # Predictions
 y_pred = lr.predict(X_test)
