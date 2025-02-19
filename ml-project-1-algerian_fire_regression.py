@@ -5,6 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LinearRegression, Lasso, Ridge, ElasticNet, LassoCV, RidgeCV, ElasticNetCV
 
 # Loading data
 df = pd.read_csv('Algerian_forest_fires_dataset_UPDATE.csv', header=1)
@@ -105,7 +106,7 @@ def getMulticollinearColumns(df, threshold, exclude):
                 multicollinearColumns.add(index)
     return multicollinearColumns
 
-multicollinearColumns = getMulticollinearColumns(df, 0.74, ['FWI'])
+multicollinearColumns = getMulticollinearColumns(df, 0.85, ['FWI'])
 
 # Drop multicollinearColumns from dataframe
 df.drop(multicollinearColumns, axis=1, inplace=True)
@@ -123,3 +124,51 @@ sc = StandardScaler()
 X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 
+# Creating and training LinearRegression model
+lr = LinearRegression()
+lr.fit(X_train, y_train)
+y_pred_lr = lr.predict(X_test)
+lr_train_score = lr.score(X_train, y_train)
+lr_test_score = lr.score(X_test, y_test)
+
+# Creating and training Lasso model
+lasso = Lasso()
+lasso.fit(X_train, y_train)
+y_pred_lasso = lasso.predict(X_test)
+lasso_train_score = lasso.score(X_train, y_train)
+lasso_test_score = lasso.score(X_test, y_test)
+
+# Creating and training Ridge model
+ridge = Ridge(alpha=1.0)
+ridge.fit(X_train, y_train)
+y_pred_ridge = ridge.predict(X_test)
+ridge_train_score = ridge.score(X_train, y_train)
+ridge_test_score = ridge.score(X_test, y_test)
+
+# Creating and training ElasticNet model
+en = ElasticNet(alpha=1.0)
+en.fit(X_train, y_train)
+y_pred_ridge = en.predict(X_test)
+en_train_score = en.score(X_train, y_train)
+en_test_score = en.score(X_test, y_test)
+
+# Creating and training LassoCV model
+lassoCV = LassoCV()
+lassoCV.fit(X_train, y_train)
+y_pred_ridge = lassoCV.predict(X_test)
+lassoCV_train_score = lassoCV.score(X_train, y_train)
+lassoCV_test_score = lassoCV.score(X_test, y_test)
+
+# Creating and training LassoCV model
+ridgeCV = RidgeCV()
+ridgeCV.fit(X_train, y_train)
+y_pred_ridge = ridgeCV.predict(X_test)
+ridgeCV_train_score = ridgeCV.score(X_train, y_train)
+ridgeCV_test_score = ridgeCV.score(X_test, y_test)
+
+# Creating and training ElasticNet model
+enCV = ElasticNetCV()
+enCV.fit(X_train, y_train)
+y_pred_ridge = enCV.predict(X_test)
+enCV_train_score = enCV.score(X_train, y_train)
+enCV_test_score = enCV.score(X_test, y_test)
